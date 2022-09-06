@@ -1,19 +1,15 @@
 import { HeartOutlined, DeleteFilled, EditOutlined, MailOutlined, PhoneOutlined, GlobalOutlined, HeartFilled } from '@ant-design/icons';
-import { Card, Modal, Form, Input } from 'antd';
+import { Card, Modal, Form, Input, Button } from 'antd';
 import { List } from 'antd'
 import "antd/dist/antd.css";
 import { React, useState } from 'react';
 const { Meta } = Card;
 
-function App({ data, onDelete }) {
+function App({ data, onDelete, handleOk }) {
     const [heartClick, setHeartClick] = useState(false)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const showModal = () => {
         setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
@@ -46,32 +42,34 @@ function App({ data, onDelete }) {
                 <li><GlobalOutlined /> <span>{data.web}</span></li>
             </List>}
         />
-        <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+        <Modal onOk={handleCancel} title="Basic Modal" footer={[<Button onClick={handleCancel}>Cancel</Button>, <Button type="primary" htmlType='submit' form='basic' onClick={handleCancel}>Submit</Button>]} visible={isModalVisible} onCancel={handleCancel}>
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
-                initialValues={{ remember: true }}
+                onFinish={(e) => handleOk(e, data.id)}
+                initialValues={{ name: data.name, Email: data.email, Phone: data.phone, Website: data.web }}
                 onFinishFailed={handleCancel}
                 autoComplete="off"
             >
                 <Form.Item
+                    kay={data.name}
                     label="Name"
                     name="name"
                     rules={[{ required: true, message: 'Please input your name!' }]}
                 >
-                    <Input
-                        value='hello' />
+                    <Input />
                 </Form.Item>
                 <Form.Item
+                    key={data.email}
                     label="Email"
                     name="Email"
                     rules={[{ required: true, message: 'Please input your Email!' }]}
                 >
-                    <Input
-                        value='hello' />
+                    <Input />
                 </Form.Item>
                 <Form.Item
+                    key={data.phone}
                     label="Phone"
                     name="Phone"
                     rules={[{ required: true, message: 'Please input your Phone!' }]}
@@ -79,6 +77,7 @@ function App({ data, onDelete }) {
                     <Input />
                 </Form.Item>
                 <Form.Item
+                    key={data.web}
                     label="Website"
                     name="Website"
                     rules={[{ required: true, message: 'Please input your Website!' }]}

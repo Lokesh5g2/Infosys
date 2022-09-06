@@ -1,7 +1,8 @@
 import Card from './components/Card'
 import { Col, Row } from 'antd';
+import { useState } from 'react';
 function App() {
-  var data = [{
+  const [data, setData] = useState([{
     id: 1,
     name: "Leanne Graham",
     email: "Sincere@april.biz",
@@ -81,16 +82,28 @@ function App() {
     web: "http://ambrose.net",
     img: "https://avatars.dicebear.com/v2/avataaars/Moriah.Stanton.svg?options[mood][]=happy"
   },
-  ]
+  ])
   const onDeleteHandler = (id) => {
     // console.log(id)
-    data.filter((u) => {
+    setData(data.filter((u) => {
       // console.log(u.id == id, id, u.id)
       return u.id !== id
-    })
+    }))
 
   }
-
+  const handleOk = (e, i) => {
+    const newData = data.map((each) => {
+      if (each.id === i) {
+        return { id: i, ...e }
+      }
+      else {
+        return each
+      }
+    }
+    )
+    setData(newData)
+    console.log(newData)
+  };
   return (
     <Row gutter={{
       xs: 8,
@@ -100,7 +113,7 @@ function App() {
     }} style={{ marginTop: "20px" }}>
       {data.map((each) => (<Col
       >
-        <Card data={each} onDelete={onDeleteHandler} /></Col>))
+        <Card key={each.id} data={each} onDelete={onDeleteHandler} handleOk={handleOk} /></Col>))
       }
     </Row >
   );
