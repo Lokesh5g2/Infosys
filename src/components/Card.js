@@ -48,7 +48,7 @@ function App({ data, onDelete, handleOk }) {
                 labelCol={{ span: 8 }}
                 wrapperCol={{ span: 16 }}
                 onFinish={(e) => handleOk(e, data.id)}
-                initialValues={{ name: data.name, Email: data.email, Phone: data.phone, Website: data.web }}
+                initialValues={{ name: data.name, email: data.email, phone: data.phone, web: data.web }}
                 onFinishFailed={handleCancel}
                 autoComplete="off"
             >
@@ -62,8 +62,8 @@ function App({ data, onDelete, handleOk }) {
                 </Form.Item>
                 <Form.Item
                     key={data.email}
-                    label="Email"
-                    name="Email"
+                    label="email"
+                    name="email"
                     rules={[{ required: true, message: 'Please input your Email!' }]}
                 >
                     <Input />
@@ -71,7 +71,7 @@ function App({ data, onDelete, handleOk }) {
                 <Form.Item
                     key={data.phone}
                     label="Phone"
-                    name="Phone"
+                    name="phone"
                     rules={[{ required: true, message: 'Please input your Phone!' }]}
                 >
                     <Input />
@@ -79,7 +79,7 @@ function App({ data, onDelete, handleOk }) {
                 <Form.Item
                     key={data.web}
                     label="Website"
-                    name="Website"
+                    name="web"
                     rules={[{ required: true, message: 'Please input your Website!' }]}
                 >
                     <Input />

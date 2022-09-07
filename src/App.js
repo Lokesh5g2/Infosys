@@ -94,7 +94,7 @@ function App() {
   const handleOk = (e, i) => {
     const newData = data.map((each) => {
       if (each.id === i) {
-        return { id: i, ...e }
+        return { id: i, ...e, img: each.img }
       }
       else {
         return each
